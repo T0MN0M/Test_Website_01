@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Good Vibes Wall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Fredoka:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="blobs" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <header>
+    <h1>Good Vibes Wall</h1>
+    <p class="tagline">Leave a note, spread some joy ✨</p>
+    <div id="db-status" class="status checking">Checking the database...</div>
+  </header>
+
+  <main>
+    <section class="card form-card">
+      <h2>Post a vibe</h2>
+      <form id="message-form">
+        <label>
+          Your name
+          <input type="text" id="name" maxlength="50" placeholder="Captain Awesome" required />
+        </label>
+
+        <label>
+          Your message
+          <textarea id="message" maxlength="280" rows="3" placeholder="Say something nice!" required></textarea>
+          <small><span id="char-count">0</span>/280</small>
+        </label>
+
+        <fieldset>
+          <legend>Pick an emoji</legend>
+          <div id="emoji-picker" class="picker"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Pick a color</legend>
+          <div id="color-picker" class="picker"></div>
+        </fieldset>
+
+        <button type="submit" class="btn">Send it! 🚀</button>
+        <p id="form-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section>
+      <h2 class="wall-title">The Wall</h2>
+      <div id="wall" class="wall"></div>
+    </section>
+  </main>
+
+  <footer>Made with HTML, CSS, JS, Node.js &amp; MySQL 💖</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
