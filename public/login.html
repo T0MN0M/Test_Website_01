@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in · The Good Vibes Wall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Fredoka:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="blobs" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <header>
+    <h1>Good Vibes Wall</h1>
+    <p class="tagline">Make an account to join the fun ✨</p>
+  </header>
+
+  <main class="auth-main">
+    <section class="card auth-card">
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab active" data-mode="login" role="tab" aria-selected="true">Log in</button>
+        <button type="button" class="tab" data-mode="signup" role="tab" aria-selected="false">Create account</button>
+      </div>
+
+      <form id="auth-form">
+        <label>
+          Username
+          <input type="text" id="username" autocomplete="username" minlength="3" maxlength="30"
+                 pattern="[A-Za-z0-9_]{3,30}" placeholder="captain_awesome" required />
+        </label>
+
+        <label>
+          Password
+          <input type="password" id="password" autocomplete="current-password" minlength="8" maxlength="200" required />
+        </label>
+
+        <label id="confirm-label" hidden>
+          Confirm password
+          <input type="password" id="confirm" autocomplete="new-password" maxlength="200" />
+        </label>
+
+        <p id="auth-hint" class="hint" hidden>3-30 letters, numbers, or underscores. Password at least 8 characters.</p>
+
+        <button type="submit" class="btn" id="auth-submit">Log in 🚀</button>
+        <p id="auth-error" class="error" role="alert"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+</body>
+</html>

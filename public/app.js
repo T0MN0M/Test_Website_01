@@ -7,12 +7,31 @@ let selectedEmoji = EMOJIS[0];
 let selectedColor = COLORS[0];
 
 const form = document.getElementById('message-form');
-const nameInput = document.getElementById('name');
 const messageInput = document.getElementById('message');
 const charCount = document.getElementById('char-count');
 const formError = document.getElementById('form-error');
 const wall = document.getElementById('wall');
 const dbStatus = document.getElementById('db-status');
+const currentUser = document.getElementById('current-user');
+const logoutBtn = document.getElementById('logout-btn');
+
+// If the session has expired, any API call returns 401: send the user back to the login page.
+const originalFetch = window.fetch.bind(window);
+window.fetch = async (...args) => {
+  const res = await originalFetch(...args);
+  if (res.status === 401) window.location.href = '/login.html';
+  return res;
+};
+
+async function loadCurrentUser() {
+  const res = await fetch('/api/me');
+  if (res.ok) currentUser.textContent = (await res.json()).username;
+}
+
+logoutBtn.addEventListener('click', async () => {
+  await fetch('/api/logout', { method: 'POST' });
+  window.location.href = '/login.html';
+});
 
 function buildPicker(containerId, items, render, onPick) {
   const container = document.getElementById(containerId);
@@ -153,7 +172,6 @@ form.addEventListener('submit', async (e) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: nameInput.value,
         message: messageInput.value,
         emoji: selectedEmoji,
         color: selectedColor,
@@ -205,5 +223,6 @@ function burstConfetti(el) {
   }
 }
 
+loadCurrentUser();
 checkHealth();
 loadMessages();

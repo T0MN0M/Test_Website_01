@@ -36,6 +36,26 @@ async function initDb() {
     )
   `);
 
+  // Accounts. Passwords are never stored as plain text, only as a salted scrypt hash.
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id            INT AUTO_INCREMENT PRIMARY KEY,
+      username      VARCHAR(30)  NOT NULL UNIQUE,
+      password_hash VARCHAR(255) NOT NULL,
+      created_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Login sessions. We store a SHA-256 hash of the cookie token, not the token itself.
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS sessions (
+      token_hash CHAR(64)  PRIMARY KEY,
+      user_id    INT       NOT NULL,
+      expires_at DATETIME  NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+  `);
+
   const [[{ count }]] = await pool.query('SELECT COUNT(*) AS count FROM messages');
   if (count === 0) {
     await pool.query(

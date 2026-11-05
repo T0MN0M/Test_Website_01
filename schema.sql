@@ -16,3 +16,18 @@ CREATE TABLE IF NOT EXISTS messages (
   likes      INT          NOT NULL DEFAULT 0,
   created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Passwords are stored as salted scrypt hashes, never as plain text.
+CREATE TABLE IF NOT EXISTS users (
+  id            INT AUTO_INCREMENT PRIMARY KEY,
+  username      VARCHAR(30)  NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  token_hash CHAR(64)  PRIMARY KEY,
+  user_id    INT       NOT NULL,
+  expires_at DATETIME  NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

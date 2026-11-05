@@ -23,11 +23,21 @@ A small, colorful test website. Visitors post notes to a shared wall, and the no
 
 The server creates the `fun_test_site` database and the `messages` table for you the first time it runs. `schema.sql` is the same setup in plain SQL, if you'd rather run it yourself in MySQL Workbench.
 
+## Accounts
+
+Visitors must create an account (username + password) before they can see the wall. Accounts are saved in the `users` table. Passwords are stored as salted scrypt hashes, never as plain text. Login sessions are kept in the `sessions` table and last 7 days. Notes are signed with the poster's username.
+
 ## API
+
+Every route except `/api/health`, `/api/signup`, and `/api/login` requires being logged in.
 
 | Method | Route                     | Description          |
 |--------|---------------------------|----------------------|
 | GET    | `/api/health`             | Database status      |
+| POST   | `/api/signup`             | Create an account    |
+| POST   | `/api/login`              | Log in               |
+| POST   | `/api/logout`             | Log out              |
+| GET    | `/api/me`                 | Current username     |
 | GET    | `/api/messages`           | Latest 50 messages   |
 | POST   | `/api/messages`           | Create a message     |
 | POST   | `/api/messages/:id/like`  | Like a message       |

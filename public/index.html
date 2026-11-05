@@ -18,17 +18,16 @@
     <h1>Good Vibes Wall</h1>
     <p class="tagline">Leave a note, spread some joy ✨</p>
     <div id="db-status" class="status checking">Checking the database...</div>
+    <div class="user-bar">
+      Signed in as <strong id="current-user">...</strong>
+      <button type="button" id="logout-btn" class="link-btn">Log out</button>
+    </div>
   </header>
 
   <main>
     <section class="card form-card">
       <h2>Post a vibe</h2>
       <form id="message-form">
-        <label>
-          Your name
-          <input type="text" id="name" maxlength="50" placeholder="Captain Awesome" required />
-        </label>
-
         <label>
           Your message
           <textarea id="message" maxlength="280" rows="3" placeholder="Say something nice!" required></textarea>
